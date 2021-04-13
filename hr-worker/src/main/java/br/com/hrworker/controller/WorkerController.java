@@ -3,6 +3,7 @@ package br.com.hrworker.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.hrworker.entity.Worker;
 import br.com.hrworker.service.impl.WorkerServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "workers")
 public class WorkerController {
 
+	@Autowired
+	private Environment env;  
+	
 	@Autowired
 	private WorkerServiceImpl workerService;
 
@@ -32,6 +38,7 @@ public class WorkerController {
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Worker> buscaWorkerPorId(@PathVariable Long id) {
+		log.info("PORT="+env.getProperty("local.server.port"));
 		try {
 			Worker bodyResponse = workerService.buscaWorkerPorId(id);
 			return ResponseEntity.ok(bodyResponse);
