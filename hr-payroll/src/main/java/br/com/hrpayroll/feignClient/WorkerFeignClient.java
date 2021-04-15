@@ -10,7 +10,8 @@ import br.com.hrpayroll.dto.WorkerDto;
 
 
 @Component
-@FeignClient(name = "hr-worker",path="/workers")
+//Eureka entrega uma instância do Worker para o FeignClient fazer a chamada do WebService
+@FeignClient(name = "hr-worker",path="/workers") //--> Ao utilizar o FeignClients só precisamos chamar o nome do serviço(aplicação) e o path sem necessidade de porta e afins.
 public interface WorkerFeignClient {
 	
 	@GetMapping(value = "/{id}")
