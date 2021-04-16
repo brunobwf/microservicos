@@ -39,12 +39,8 @@ public class WorkerController {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Worker> buscaWorkerPorId(@PathVariable Long id) {
 		log.info("PORT="+env.getProperty("local.server.port"));
-		try {
 			Worker bodyResponse = workerService.buscaWorkerPorId(id);
 			return ResponseEntity.ok(bodyResponse);
-		} catch (Exception e) {
-			return new ResponseEntity<Worker>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
 	}
 
 }
